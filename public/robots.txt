@@ -1,0 +1,7 @@
+# Only the landing page may be indexed. The assets stay allowed, because
+# crawlers need the JavaScript and CSS to render the single page application.
+User-agent: *
+Allow: /$
+Allow: /assets/
+Allow: /favicon.svg
+Disallow: /
