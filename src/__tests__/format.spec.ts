@@ -10,7 +10,7 @@ describe('format', () => {
     expect(formatUtc('garbage')).toBe('garbage')
   })
 
-  it('truncates like Jinja int', () => {
+  it('truncates towards zero', () => {
     expect(toInt(12.9)).toBe(12)
     expect(toInt(-12.9)).toBe(-12)
   })

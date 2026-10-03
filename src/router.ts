@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: (C) 2026, rick@vanosten.net
 // SPDX-License-Identifier: GPL-2.0-or-later
-// The paths are the same as in the Flask web-ui, such that existing links/bookmarks keep working.
+// Keep the paths stable, such that existing links/bookmarks (e.g. in the manual in doc/manual) keep working.
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'

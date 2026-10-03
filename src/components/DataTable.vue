@@ -139,7 +139,7 @@ function clearFilters(): void {
   white-space: nowrap;
 }
 
-/* the first row is shaded like in the Flask web-ui */
+/* the first row is shaded */
 .data_table tbody tr:nth-child(odd) {
   background-color: var(--color-surface);
 }

@@ -16,6 +16,7 @@ export interface MapMarker {
   lat: number
   popupLines: string[]
   colour?: string // if given, then a circle marker in that colour is used instead of a default marker
+  pinVariant?: 'red' // if given (and no colour), then the default marker is recoloured
 }
 
 const props = defineProps<{
@@ -33,6 +34,11 @@ const defaultIcon = L.icon({
   shadowUrl: markerShadowUrl,
 })
 
+// Leaflet only ships the blue marker image - other colours are derived from it by a CSS filter
+const pinIcons: Record<NonNullable<MapMarker['pinVariant']>, L.Icon> = {
+  red: L.icon({ ...defaultIcon.options, className: 'marker_red' }),
+}
+
 const mapElement = useTemplateRef<HTMLElement>('mapElement')
 let map: L.Map | null = null
 // the map size can change with the window size (the map has a relative width)
@@ -46,7 +52,7 @@ function updateMarkers(markers: MapMarker[]): void {
     const latLng: L.LatLngExpression = [marker.lat, marker.lon]
     const layer = marker.colour
       ? L.circleMarker(latLng, { color: marker.colour, fillColor: marker.colour, fillOpacity: 0.5, radius: 8 })
-      : L.marker(latLng, { icon: defaultIcon })
+      : L.marker(latLng, { icon: marker.pinVariant ? pinIcons[marker.pinVariant] : defaultIcon })
     layer.bindPopup(buildPopupContent(marker.popupLines))
     markerLayer.addLayer(layer)
   }
@@ -85,3 +91,11 @@ onBeforeUnmount(() => {
 <template>
   <section ref="mapElement" aria-label="Map"></section>
 </template>
+
+<style>
+/* not scoped: Leaflet creates the marker images outside of Vue's rendering.
+   Turns the blue of the default marker into red (the grey shadow is not affected) */
+.marker_red {
+  filter: hue-rotate(150deg) saturate(1.5);
+}
+</style>

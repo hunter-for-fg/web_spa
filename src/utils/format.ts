@@ -20,7 +20,7 @@ export function formatUtcTime(date: Date): string {
   return date.toISOString().slice(11, 19)
 }
 
-/** Truncates towards zero like Jinja's int filter. */
+/** Truncates towards zero (also for negative values). */
 export function toInt(value: number): number {
   return Math.trunc(value)
 }

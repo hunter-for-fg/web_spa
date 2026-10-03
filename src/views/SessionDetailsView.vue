@@ -20,6 +20,7 @@ const airportMarkers = computed<MapMarker[]>(() => (session.value?.airports ?? [
   lon: airport.lon,
   lat: airport.lat,
   popupLines: airportPopupLines(airport),
+  pinVariant: 'red',
 })))
 
 /** A row shows either a text or a check mark. */
@@ -75,7 +76,7 @@ const detailRows = computed<DetailRow[]>(() => {
           </tbody>
         </table>
 
-        <p>Click on the blue markers in the map to get info about the airport like ICAO and name.</p>
+        <p>Click on the red markers in the map to get info about the airport like ICAO and name.</p>
 
         <LeafletMap class="session_map" :key="session.session_id"
                     :bounds="[session.scenario_west_lon, session.scenario_south_lat,

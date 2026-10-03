@@ -8,7 +8,7 @@ import { currentSession, SESSION_ID_PARAM, sessionIdFromQuery } from '@/composab
 
 const route = useRoute()
 
-// like the Flask app: the session links are only shown on pages of a valid session
+// the session links are only shown on pages of a valid session
 const sessionQuery = computed(() => {
   const session = currentSession.value
   if (!route.meta.sessionPage || !session

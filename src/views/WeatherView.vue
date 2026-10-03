@@ -13,7 +13,7 @@ import type { Column } from '@/utils/table'
 
 defineProps<{ title: string }>()
 
-// inputs and results are kept in localStorage (the Flask app kept them in its session cookie)
+// inputs and results are kept in localStorage
 const qnh = usePersistentState('weather.qnh', {
   icao: '',
   lon: '',

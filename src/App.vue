@@ -21,9 +21,17 @@ import NavBar from '@/components/NavBar.vue'
 </template>
 
 <style scoped>
-/* full window width like the Flask web-ui - e.g. the maps grow with the window */
+/* relative to the window width - e.g. the maps grow with the window */
 .page_header, .page_main, .page_footer {
   padding: 0 var(--space);
+}
+
+/* leave free stripes on both sides, so the page can be scrolled vertically
+   without hitting the maps (which would zoom/pan) or the tables/forms.
+   The header has the same width, so the navigation aligns with the content */
+.page_header, .page_main {
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .page_header {
