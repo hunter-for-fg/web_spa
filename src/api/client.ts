@@ -6,6 +6,7 @@ import type {
   DamageResult,
   HunterSession,
   MetarsResult,
+  MissileEvent,
   PositionUpdate,
   QfeResult,
 } from './types'
@@ -69,6 +70,10 @@ export function fetchDamages(sessionId: string): Promise<DamageResult[]> {
 
 export function fetchAttackerEvents(sessionId: string): Promise<AttackerEvent[]> {
   return get<AttackerEvent[]>(sessionPath(sessionId, 'attacker-events'))
+}
+
+export function fetchMissileEvents(sessionId: string): Promise<MissileEvent[]> {
+  return get<MissileEvent[]>(sessionPath(sessionId, 'missile-events'))
 }
 
 export function fetchPositions(sessionId: string): Promise<PositionUpdate[]> {

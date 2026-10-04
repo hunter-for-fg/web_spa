@@ -41,6 +41,11 @@ const router = createRouter({
       meta: { title: 'Attacker Events', sessionPage: true },
     },
     {
+      path: '/ongoing_session/missile_events',
+      component: () => import('@/views/MissileEventsView.vue'),
+      meta: { title: 'Missile Events', sessionPage: true },
+    },
+    {
       path: '/ongoing_session/positions_list',
       component: () => import('@/views/PositionsListView.vue'),
       meta: { title: 'List of Attacker and Target Positions', sessionPage: true },

@@ -65,6 +65,14 @@ export interface AttackerEvent {
   trigger_name: string
 }
 
+export interface MissileEvent {
+  event_time: string
+  unique_id: number
+  attacker: string
+  target: string
+  telemetry_string: string
+}
+
 export type MarkerCategory = 'carrier' | 'attacker' | 'vehicle' | 'ship' | 'coaster' | 'static' | 'other'
 
 export interface PositionUpdate {

@@ -37,6 +37,9 @@ const sessionQuery = computed(() => {
           <RouterLink :to="{ path: '/ongoing_session/attacker_events', query: sessionQuery }">Attacker Events</RouterLink>
         </li>
         <li class="sep_bar">
+          <RouterLink :to="{ path: '/ongoing_session/missile_events', query: sessionQuery }">Missile Events</RouterLink>
+        </li>
+        <li class="sep_bar">
           Attacker and Target Positions
           <RouterLink :to="{ path: '/ongoing_session/positions_list', query: sessionQuery }">List</RouterLink>
           <span aria-hidden="true"> &bullet; </span>
