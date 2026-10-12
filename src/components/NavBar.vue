@@ -48,7 +48,7 @@ const sessionQuery = computed(() => {
       </template>
       <li class="sep_diamond">
         <a class="documentation" rel="external noopener" target="_blank"
-           href="https://vanosten.gitlab.io/hunter/end_user_flying.html">Hunter Documentation <span aria-hidden="true">&#10697;</span><span class="visually_hidden"> (opens in a new tab)</span></a>
+           href="https://hunter-for-fg.github.io/manual/">Hunter Documentation <span aria-hidden="true">&#10697;</span><span class="visually_hidden"> (opens in a new tab)</span></a>
       </li>
     </ul>
   </nav>
