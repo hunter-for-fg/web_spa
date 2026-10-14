@@ -30,6 +30,10 @@ export default defineConfig(({ mode }) => {
     },
     test: {
       environment: 'jsdom',
+      // independent of personal settings in .env.local etc.
+      env: {
+        VITE_API_BASE_URL: '/api',
+      },
     },
   }
 })

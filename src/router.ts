@@ -1,6 +1,5 @@
 // SPDX-FileCopyrightText: (C) 2026, rick@vanosten.net
 // SPDX-License-Identifier: GPL-2.0-or-later
-// Keep the paths stable, such that existing links/bookmarks (e.g. in the manual in doc/manual) keep working.
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
@@ -12,14 +11,11 @@ declare module 'vue-router' {
   }
 }
 
-const WEATHER_TITLE = 'Weather tools'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', component: HomeView, meta: { title: 'Home' } },
-    { path: '/tools/weather_qfe', component: () => import('@/views/WeatherView.vue'), meta: { title: WEATHER_TITLE } },
-    { path: '/tools/weather_qnh', redirect: '/tools/weather_qfe' },
+    { path: '/tools/weather', component: () => import('@/views/WeatherView.vue'), meta: { title: 'Weather tools' } },
     {
       path: '/ongoing_session/sessions_list',
       component: () => import('@/views/SessionsListView.vue'),

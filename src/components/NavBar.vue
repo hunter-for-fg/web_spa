@@ -5,17 +5,37 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { currentSession, SESSION_ID_PARAM, sessionIdFromQuery } from '@/composables/useSessionPage'
+import { manualUrl } from '@/utils/manual'
+import NavDropdown, { type NavDropdownItem } from './NavDropdown.vue'
 
 const route = useRoute()
 
+const SESSION_PAGES = [
+  { path: '/ongoing_session/current_session', label: 'Session Details' },
+  { path: '/ongoing_session/damages', label: 'Damage and Hits' },
+  { path: '/ongoing_session/attacker_events', label: 'Attacker Events' },
+  { path: '/ongoing_session/missile_events', label: 'Missile Events' },
+  { path: '/ongoing_session/positions_list', label: 'Attacker and Target Positions: List' },
+  { path: '/ongoing_session/positions_map', label: 'Attacker and Target Positions: Map' },
+]
+
+const HELP_ITEMS: NavDropdownItem[] = [
+  { label: 'About', href: manualUrl('about.html') },
+  { label: 'Terms of Use, Conduct and Privacy', href: manualUrl('terms_of_use.html') },
+  { label: 'Using the Web UI', href: manualUrl('web_application.html') },
+  { label: 'Using Hunter as a Pilot', href: manualUrl('end_user_flying.html') },
+  { label: 'Operating the Hunter Controller', href: manualUrl('operators.html') },
+]
+
 // the session links are only shown on pages of a valid session
-const sessionQuery = computed(() => {
+const sessionItems = computed<NavDropdownItem[] | null>(() => {
   const session = currentSession.value
   if (!route.meta.sessionPage || !session
       || session.session_id !== sessionIdFromQuery(route.query[SESSION_ID_PARAM])) {
     return null
   }
-  return { [SESSION_ID_PARAM]: session.session_id }
+  const query = { [SESSION_ID_PARAM]: session.session_id }
+  return SESSION_PAGES.map(({ path, label }) => ({ label, to: { path, query } }))
 })
 </script>
 
@@ -24,31 +44,13 @@ const sessionQuery = computed(() => {
   <nav aria-label="Main">
     <ul class="nav_list">
       <li><RouterLink class="home" to="/">Home</RouterLink></li>
-      <li class="sep_bar"><RouterLink class="weather" to="/tools/weather_qfe">Weather</RouterLink></li>
+      <li class="sep_bar"><RouterLink class="weather" to="/tools/weather">Weather</RouterLink></li>
       <li class="sep_bar"><RouterLink to="/ongoing_session/sessions_list">List of available sessions</RouterLink></li>
-      <template v-if="sessionQuery">
-        <li class="sep_group">
-          <RouterLink :to="{ path: '/ongoing_session/current_session', query: sessionQuery }">Session Details</RouterLink>
-        </li>
-        <li class="sep_bar">
-          <RouterLink :to="{ path: '/ongoing_session/damages', query: sessionQuery }">Damage and Hits</RouterLink>
-        </li>
-        <li class="sep_bar">
-          <RouterLink :to="{ path: '/ongoing_session/attacker_events', query: sessionQuery }">Attacker Events</RouterLink>
-        </li>
-        <li class="sep_bar">
-          <RouterLink :to="{ path: '/ongoing_session/missile_events', query: sessionQuery }">Missile Events</RouterLink>
-        </li>
-        <li class="sep_bar">
-          Attacker and Target Positions
-          <RouterLink :to="{ path: '/ongoing_session/positions_list', query: sessionQuery }">List</RouterLink>
-          <span aria-hidden="true"> &bullet; </span>
-          <RouterLink :to="{ path: '/ongoing_session/positions_map', query: sessionQuery }">Map</RouterLink>
-        </li>
-      </template>
-      <li class="sep_diamond">
-        <a class="documentation" rel="external noopener" target="_blank"
-           href="https://hunter-for-fg.github.io/manual/">Hunter Documentation <span aria-hidden="true">&#10697;</span><span class="visually_hidden"> (opens in a new tab)</span></a>
+      <li v-if="sessionItems" class="sep_group">
+        <NavDropdown label="Session pages" :items="sessionItems" />
+      </li>
+      <li class="sep_diamond help">
+        <NavDropdown label="Help" :items="HELP_ITEMS" />
       </li>
     </ul>
   </nav>
@@ -58,6 +60,7 @@ const sessionQuery = computed(() => {
 .nav_list {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.25rem 0;
   margin: 0;
   padding: 0;
@@ -90,7 +93,7 @@ a.weather {
   color: var(--color-accent);
 }
 
-a.documentation {
-  color: hotpink;
+.help {
+  --nav-dropdown-color: hotpink;
 }
 </style>

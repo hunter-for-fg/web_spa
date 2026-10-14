@@ -1,6 +1,29 @@
+# dependencies and build output
 node_modules/
 dist/
+*.tsbuildinfo
+
+# local environment (.env.production is committed - it only holds public URLs)
 .env
 .env.local
 .env.*.local
+
+# Azure Static Web Apps CLI
 .swa/
+
+# test coverage and tool caches
+coverage/
+.eslintcache
+
+# logs
+*.log
+npm-debug.log*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
